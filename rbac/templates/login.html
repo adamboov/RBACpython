@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<style type="text/css">
+    body {
+        margin: 0px;
+        background-color: white;
+        font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+        text-align: center;
+        /* color: darkred; */
+    }
+
+    /*输入框样式，去掉背景阴影模仿原生应用的输入框*/
+    input {
+        width: 30%;
+        height: 50px;
+    {#border:none;#} padding-left: 3px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    /*显示\隐藏密码图片*/
+    img {
+        width: 40px;
+        height: 25px;
+        position: relative;
+        right: -25px;
+        margin: -23px;
+    }
+
+    /*登录按钮*/
+    button {
+        width: 200px;
+        height: 50px;
+        margin-top: 25px;
+        background: #1E90FF;
+        border-radius: 10px;
+        border: none;
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    button:hover {
+        background: #79A84B;
+        outline: 0;
+    }
+
+    #page_container {
+        margin: 50px;
+    }
+</style>
+
+<body>
+<form class="" action="/login" method="post" onsubmit="return check()">
+    {% csrf_token %}
+    <div id="page_container">
+        <h1>登陆</h1>
+        <div class="">
+            <input type="text" name="username" placeholder="UserName"/>
+        </div>
+        </br>
+        <!--密码输入框-->
+        <div class="input_block">
+            <input type="password" id="demo_input" name="password" placeholder="Password"/>
+            <img id="demo_img" onclick="hideShowPsw()" src="../static/src/images/visible.png">
+        </div>
+
+        <button id="login">Login</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    let demoImg = document.getElementById("demo_img");
+    let demoInput = document.getElementById("demo_input");
+    let login = document.getElementById("login")
+    let name = document.getElementsByName("username")
+    let password = document.getElementsByName("password")
+
+    function check() {
+        if (name[0].value == "" || password[0].value == "") {
+            demoInput.placeholder = "请输入密码！"
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    //隐藏text block，显示password block
+    function hideShowPsw() {
+        if (demoInput.type == "password") {
+            demoInput.type = "text";
+            demoImg.src = "../static/src/images/invisible.png";
+        } else {
+            demoInput.type = "password";
+            demoImg.src = "../static/src/images/visible.png";
+        }
+    }
+</script>
+</body>
+</html>
